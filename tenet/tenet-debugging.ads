@@ -1,7 +1,5 @@
 -------------------------------------------------------------------------------------------------------------------
--- Tenet.Debugging
-
--- Package Specification
+-- =####= Tenet.Debugging package specification =####=
 
 -- Copyright (C) 2003 Nicholas James Roberts (South Croydon, Surrey, UK).
 -- Part of the Tenet Container Library. See the bottom (end) of this file for important legal information.
@@ -10,9 +8,13 @@
 -------------------------------------------------------------------------------------------------------------------
 package Tenet.Debugging is
 
+   -- Provides basic aids in debugging Ada programs.
+
+   -- See the accompanying Tenet documentation for more details.
+
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Debugging levels and locus:
+   -- =###= Debugging levels and locus =###=
 
    subtype Debugging_Level is Integer range 0..7;
 
@@ -24,9 +26,11 @@ package Tenet.Debugging is
 
    procedure Set_Current_Locus (Locus: in String);
 
+   procedure End_Current_Locus; -- restores previous
+
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Reporting an error:
+   -- =###= Reporting an error =###=
 
    procedure Error (Message: in String := "Unspecified";
                     Level:   in Debugging_Level := 0);
@@ -35,7 +39,7 @@ package Tenet.Debugging is
    
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Checking for errors:
+   -- =###= Checking for errors =###=
 
    procedure Ensure (Condition: in Boolean;
                      Message:   in String := "Unspecified";
@@ -47,7 +51,7 @@ package Tenet.Debugging is
    
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Log messages:
+   -- =###= Log messages =###=
 
    procedure Note (Message: in String;
                    Level:   in Debugging_Level := 1);
@@ -56,7 +60,7 @@ package Tenet.Debugging is
    
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Error log management:
+   -- =###= Error log management =###=
 
    procedure Open_Log (Name: in String := "";  -- "" for default name
                        Form: in String := ""); -- "" for default form
@@ -73,7 +77,7 @@ package Tenet.Debugging is
    function Log_Form return String;
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Exceptions:
+   -- =###= Exceptions =###=
 
    Debugging_Error: exception;
    
@@ -82,7 +86,7 @@ end Tenet.Debugging;
 
 
 -------------------------------------------------------------------------------------------------------------------
--- LEGAL INFORMATION
+-- =###= LEGAL INFORMATION =###=
 
 -- The "Tenet Container Library", or "Tenet", is a "Program" as defined in clause 0 of the GPL, and its source code
 -- exactly comprises the contents of the accompanying files named in the accompanying file "manifest.txt".
@@ -120,20 +124,24 @@ end Tenet.Debugging;
 
 
 -------------------------------------------------------------------------------------------------------------------
--- Repository Data
+-- =###= Repository Data =###=
 
--- $Id: tenet-debugging.ads,v 1.1 2003/08/03 19:03:47 debater Exp $
+-- $Id: tenet-debugging.ads,v 1.2 2003/08/10 17:49:49 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.1 $
+-- $Revision: 1.2 $
 -- $Author: debater $
--- $Date: 2003/08/03 19:03:47 $
+-- $Date: 2003/08/10 17:49:49 $
 -- $State: Exp $
 
 -- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/tenet-debugging.ads,v $
 -- $RCSfile: tenet-debugging.ads,v $
 
 -- $Log: tenet-debugging.ads,v $
+-- Revision 1.2  2003/08/10 17:49:49  debater
+-- Added bounded stacks package.
+--
+--
 -- Revision 1.1  2003/08/03 19:03:47  debater
 -- Still just populating the module. Early days.
 --
@@ -150,6 +158,5 @@ end Tenet.Debugging;
 
 -------------------------------------------------------------------------------------------------------------------
 -- End of File.
-
 
 

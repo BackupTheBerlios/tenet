@@ -10,13 +10,6 @@ for important legal information.
 
 
 ---------------------------------------------------------------------------
-Accompanying Documentation
-
-The file "maint.txt" contains notes for the use of any programmers or
-maintainers of Tenet.
-
-
----------------------------------------------------------------------------
 Tenet Container Library
 
 This library is intended to provide a small selection of the most useful
@@ -29,6 +22,43 @@ typical usage.
 
 Please see the accompanying documentation for more information about
 this software.
+
+Every library unit, or group of closely related units, should have a
+separate TDL file which contains a chapter describing the purpose,
+design, and significant implementation details of the unit or units.
+
+In addition, there should also be a separate TDL containing a chapter of
+user documentation, describing how to use the unit or units.
+
+Currently, the most up-to-date copy of Tenet is being held at the
+BerliOS development site:
+
+   https://developer.berlios.de/projects/tenet
+
+A complete record of the development of Tenet is held on the CVS server
+there. Instructions for joining a project and accessing the CVS server
+are published on the site.
+
+
+---------------------------------------------------------------------------
+File: "manifest.txt"
+
+This file contains a list of the names, one per line, of the files which
+comprise the source code of Tenet as a legal entity (a work under
+copyright). If you add files to Tenet which should be protected, please
+add their names to this list. Do not include any of the trivial files
+which have no need to be protected by the terms of the GPL. Remember
+that you can never remove files from any published version of this list!
+
+If you distribute Tenet, you must include (or make available) at least
+all the files listed in "manifest.txt".
+
+
+---------------------------------------------------------------------------
+Directory: "test"
+
+This directory contains all the test programs needed to thoroughly test
+the whole Tenet library.
 
 
 ---------------------------------------------------------------------------
@@ -67,18 +97,21 @@ covered by the GNU General Public License.
 ---------------------------------------------------------------------------
 -- Repository Data
 
--- $Id: readme.txt,v 1.1 2003/08/02 22:25:28 debater Exp $
+-- $Id: readme.txt,v 1.2 2003/08/10 17:49:49 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.1 $
+-- $Revision: 1.2 $
 -- $Author: debater $
--- $Date: 2003/08/02 22:25:28 $
+-- $Date: 2003/08/10 17:49:49 $
 -- $State: Exp $
 
 -- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/readme.txt,v $
 -- $RCSfile: readme.txt,v $
 
 -- $Log: readme.txt,v $
+-- Revision 1.2  2003/08/10 17:49:49  debater
+-- Added bounded stacks package.
+--
 -- Revision 1.1  2003/08/02 22:25:28  debater
 -- Improved 'Debugging' package, and testing.
 -- Added my own test framework (for Windows 95).

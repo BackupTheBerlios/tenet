@@ -8,6 +8,8 @@ manifest.txt
 readme.txt
 tenet.ads
 tenet-stacks.ads
+tenet-stacks-bounded.adb
+tenet-stacks-bounded.ads
 test/calio.adb
 test/debug001.adb
 

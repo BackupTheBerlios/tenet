@@ -1,7 +1,5 @@
 -------------------------------------------------------------------------------------------------------------------
--- Tenet.Stacks.Bounded
-
--- Package Specification
+-- =####= Tenet.Stacks.Bounded package specification =####=
 
 -- Copyright (C) 2003 Nicholas James Roberts (South Croydon, Surrey, UK).
 -- Part of the Tenet Container Library. See the bottom (end) of this file for important legal information.
@@ -16,7 +14,7 @@ package Tenet.Stacks.Bounded is
 
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Generic bounded-length stacks package:
+   -- =###= Generic bounded-length stacks package =###=
 
    generic
       type Element_Type is private;
@@ -46,7 +44,7 @@ package Tenet.Stacks.Bounded is
 
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Private part of Tenet.Stacks.Bounded:
+   -- =###= Private part of Tenet.Stacks.Bounded =###=
 
    private
 
@@ -76,7 +74,7 @@ end Tenet.Stacks.Bounded;
 
 
 -------------------------------------------------------------------------------------------------------------------
--- LEGAL INFORMATION
+-- =###= LEGAL INFORMATION =###=
 
 -- The "Tenet Container Library", or "Tenet", is a "Program" as defined in clause 0 of the GPL, and its source code
 -- exactly comprises the contents of the accompanying files named in the accompanying file "manifest.txt".
@@ -114,20 +112,23 @@ end Tenet.Stacks.Bounded;
 
 
 -------------------------------------------------------------------------------------------------------------------
--- Repository Data
+-- =###= Repository Data =###=
 
--- $Id: tenet-stacks-bounded.ads,v 1.1 2003/08/03 19:03:47 debater Exp $
+-- $Id: tenet-stacks-bounded.ads,v 1.2 2003/08/10 17:49:49 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.1 $
+-- $Revision: 1.2 $
 -- $Author: debater $
--- $Date: 2003/08/03 19:03:47 $
+-- $Date: 2003/08/10 17:49:49 $
 -- $State: Exp $
 
 -- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/tenet-stacks-bounded.ads,v $
 -- $RCSfile: tenet-stacks-bounded.ads,v $
 
 -- $Log: tenet-stacks-bounded.ads,v $
+-- Revision 1.2  2003/08/10 17:49:49  debater
+-- Added bounded stacks package.
+--
 -- Revision 1.1  2003/08/03 19:03:47  debater
 -- Still just populating the module. Early days.
 --

@@ -1,7 +1,5 @@
 -------------------------------------------------------------------------------------------------------------------
--- Tenet
-
--- Package Specification
+-- =####= Tenet package specification =####=
 
 -- Copyright (C) 2003 Nicholas James Roberts (South Croydon, Surrey, UK).
 -- Part of the Tenet Container Library. See the bottom (end) of this file for important legal information.
@@ -10,13 +8,17 @@
 -------------------------------------------------------------------------------------------------------------------
 package Tenet is
 
+   -- Root package for a hierarchy of basic container types and basic utility packages.
+
+   -- See the accompanying Tenet documentation for more details.
+
    pragma Pure;
 
 end;
 
 
 -------------------------------------------------------------------------------------------------------------------
--- LEGAL INFORMATION
+-- =###= LEGAL INFORMATION =###=
 
 -- The "Tenet Container Library", or "Tenet", is a "Program" as defined in clause 0 of the GPL, and its source code
 -- exactly comprises the contents of the accompanying files named in the accompanying file "manifest.txt".
@@ -54,20 +56,24 @@ end;
 
 
 -------------------------------------------------------------------------------------------------------------------
--- Repository Data
+-- =###= Repository Data =###=
 
--- $Id: tenet.ads,v 1.1 2003/08/02 22:25:28 debater Exp $
+-- $Id: tenet.ads,v 1.2 2003/08/10 17:49:49 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.1 $
+-- $Revision: 1.2 $
 -- $Author: debater $
--- $Date: 2003/08/02 22:25:28 $
+-- $Date: 2003/08/10 17:49:49 $
 -- $State: Exp $
 
 -- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/tenet.ads,v $
 -- $RCSfile: tenet.ads,v $
 
 -- $Log: tenet.ads,v $
+-- Revision 1.2  2003/08/10 17:49:49  debater
+-- Added bounded stacks package.
+--
+--
 -- Revision 1.1  2003/08/02 22:25:28  debater
 -- Improved 'Debugging' package, and testing.
 -- Added my own test framework (for Windows 95).

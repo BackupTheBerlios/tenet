@@ -1,7 +1,5 @@
 -------------------------------------------------------------------------------------------------------------------
--- Tenet.Debugging
-
--- Package Body
+-- =####= Tenet.Debugging package body =####=
 
 -- Copyright (C) 2003 Nicholas James Roberts (South Croydon, Surrey, UK).
 -- Part of the Tenet Container Library. See the bottom (end) of this file for important legal information.
@@ -18,12 +16,50 @@ package body Tenet.Debugging is
 
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Debugging state:
+   -- =###= Simple string stacks =###=
+
+   type String_Array is array (Positive range <>) of Unbounded_String;
+
+   type String_Stack (Max: Positive) is
+      record
+         ToS: Natural := 0;
+         Arr: String_Array(1..Max);
+      end record;
+
+   procedure Push (Stk: in out String_Stack;
+                   Str: in     String) is
+   begin
+      if Stk.ToS = Stk.Max then raise Program_Error; end if;
+      Stk.ToS := Stk.ToS+1;
+      Stk.Arr(Stk.ToS) := To_Unbounded_String(Str);
+   end;
+
+
+   procedure Pop_and_Discard (Stk: in out String_Stack) is
+   begin
+      if Stk.ToS = 0 then raise Program_Error; end if;
+      Stk.Arr(Stk.ToS) := Null_Unbounded_String; -- to free memory (?)
+      Stk.ToS := Stk.ToS-1;
+   end;
+
+
+   function Top (Stk: in String_Stack) return String is
+   begin
+      if Stk.ToS = 0 then
+         return "";
+      else
+         return To_String( Stk.Arr(Stk.ToS) );
+      end if;
+   end;
+
+
+   ----------------------------------------------------------------------------------------------------------------
+   -- =###= Debugging state =###=
 
    type Debugging_State is new Ada.Finalization.Limited_Controlled with
       record
-         Log:   Ada.Text_IO.File_Type;
-         Locus: Unbounded_String;
+         Log:  Ada.Text_IO.File_Type;
+         Loci: String_Stack(20);
       end record;
 
    procedure Finalize (State: in out Debugging_State);
@@ -34,21 +70,26 @@ package body Tenet.Debugging is
 
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Current locus:
+   -- =###= Current locus =###=
 
    function Current_Locus return String is
    begin
-      return To_String( The_State.Locus );
+      return Top(The_State.Loci);
    end;
 
    procedure Set_Current_Locus (Locus: in String) is
    begin
-      The_State.Locus := To_Unbounded_String(Locus);
+      Push( The_State.Loci, Locus );
+   end;
+
+   procedure End_Current_Locus is
+   begin
+      Pop_and_Discard( The_State.Loci );
    end;
 
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Putting a timestamped message on the log:
+   -- =###= Putting a timestamped message on the log =###=
 
    -- NB: timestamping removed for time being, to help testing, and because I think Tenet.Calendar_IO should be used instead [NJR 2aug03]
 
@@ -100,7 +141,7 @@ package body Tenet.Debugging is
 
       if Current_Locus /= Null_Unbounded_String then
          Put( File, "(<Locus> " );
-         Put( File, To_String(The_State.Locus) );
+         Put( File, Current_Locus );
          Put( File, ") " );
       end if;
 
@@ -126,7 +167,7 @@ package body Tenet.Debugging is
 
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Concatenating the program arguments into one string:
+   -- =###= Concatenating the program arguments into one string =###=
 
    function Catenate_Program_Arguments return String is
 
@@ -150,14 +191,14 @@ package body Tenet.Debugging is
 
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Default log file name and form:
+   -- =###= Default log file name and form =###=
 
    Default_Log_Name: constant String := "errorlog.txt";
    Default_Log_Form: constant String := "";
 
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Error log management:
+   -- =###= Error log management =###=
 
    procedure Open_Log (Name: in String := ""; Form: in String := "") is
 
@@ -221,7 +262,7 @@ package body Tenet.Debugging is
 
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Finalization of debugging state:
+   -- =###= Finalization of debugging state =###=
 
    procedure Finalize (State: in out Debugging_State) is
    begin
@@ -237,7 +278,7 @@ package body Tenet.Debugging is
 
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Ensuring the log is open:
+   -- =###= Ensuring the log is open =###=
 
    procedure Ensure_Log_is_Open is
    begin
@@ -246,7 +287,7 @@ package body Tenet.Debugging is
 
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Reporting an error:
+   -- =###= Reporting an error =###=
 
    procedure Error (Message: in String := "Unspecified";
                     Level:   in Debugging_Level := 0) is
@@ -262,7 +303,7 @@ package body Tenet.Debugging is
    
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Checking for errors:
+   -- =###= Checking for errors =###=
 
    procedure Ensure (Condition: in Boolean;
                      Message:   in String := "Unspecified";
@@ -279,7 +320,7 @@ package body Tenet.Debugging is
    
 
    ----------------------------------------------------------------------------------------------------------------
-   -- Log messages:
+   -- =###= Log messages =###=
 
    procedure Note (Message: in String;
                    Level:   in Debugging_Level := 1) is
@@ -297,7 +338,7 @@ end Tenet.Debugging;
 
 
 -------------------------------------------------------------------------------------------------------------------
--- LEGAL INFORMATION
+-- =###= LEGAL INFORMATION =###=
 
 -- The "Tenet Container Library", or "Tenet", is a "Program" as defined in clause 0 of the GPL, and its source code
 -- exactly comprises the contents of the accompanying files named in the accompanying file "manifest.txt".
@@ -335,20 +376,24 @@ end Tenet.Debugging;
 
 
 -------------------------------------------------------------------------------------------------------------------
--- Repository Data
+-- =###= Repository Data =###=
 
--- $Id: tenet-debugging.adb,v 1.1 2003/08/03 19:03:47 debater Exp $
+-- $Id: tenet-debugging.adb,v 1.2 2003/08/10 17:49:49 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.1 $
+-- $Revision: 1.2 $
 -- $Author: debater $
--- $Date: 2003/08/03 19:03:47 $
+-- $Date: 2003/08/10 17:49:49 $
 -- $State: Exp $
 
 -- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/tenet-debugging.adb,v $
 -- $RCSfile: tenet-debugging.adb,v $
 
 -- $Log: tenet-debugging.adb,v $
+-- Revision 1.2  2003/08/10 17:49:49  debater
+-- Added bounded stacks package.
+--
+--
 -- Revision 1.1  2003/08/03 19:03:47  debater
 -- Still just populating the module. Early days.
 --
@@ -365,6 +410,5 @@ end Tenet.Debugging;
 
 -------------------------------------------------------------------------------------------------------------------
 -- End of File.
-
 
 
