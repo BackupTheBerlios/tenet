@@ -1,0 +1,10 @@
+debugging.adb
+debugging.ads
+gpl.txt
+maint.txt
+manifest.txt
+readme.txt
+tenet.ads
+tenet-stacks.ads
+test/debug001.adb
+

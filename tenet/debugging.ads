@@ -84,6 +84,9 @@ end Debugging;
 -------------------------------------------------------------------------------------------------------------------
 -- LEGAL INFORMATION
 
+-- The "Tenet Container Library", or "Tenet", is a "Program" as defined in clause 0 of the GPL, and its source code
+-- exactly comprises the contents of the accompanying files named in the accompanying file "manifest.txt".
+
 -- "Tenet" is free software; you can redistribute it and/or modify it under the terms of the GNU General Public
 -- License as published by the Free Software Foundation; either version 2, or (at your option) any later version.
 -- Tenet is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
@@ -119,18 +122,24 @@ end Debugging;
 -------------------------------------------------------------------------------------------------------------------
 -- Repository Data
 
--- $Id: debugging.ads,v 1.2 2003/08/02 04:08:40 debater Exp $
+-- $Id: debugging.ads,v 1.3 2003/08/02 22:25:28 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.2 $
+-- $Revision: 1.3 $
 -- $Author: debater $
--- $Date: 2003/08/02 04:08:40 $
+-- $Date: 2003/08/02 22:25:28 $
 -- $State: Exp $
 
 -- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/Attic/debugging.ads,v $
 -- $RCSfile: debugging.ads,v $
 
 -- $Log: debugging.ads,v $
+-- Revision 1.3  2003/08/02 22:25:28  debater
+-- Improved 'Debugging' package, and testing.
+-- Added my own test framework (for Windows 95).
+-- Added the readme and maint files.
+-- Made various small improvements.
+--
 -- Revision 1.2  2003/08/02 04:08:40  debater
 -- First successful test run
 --

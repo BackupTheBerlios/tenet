@@ -1,34 +1,20 @@
 -------------------------------------------------------------------------------------------------------------------
--- Tenet.
+-- Tenet.Stacks
 
--- Package Body
+-- Package Specification
 
 -- Copyright (C) 2003 Nicholas James Roberts (South Croydon, Surrey, UK).
 -- Part of the Tenet Container Library. See the bottom (end) of this file for important legal information.
 
 
 -------------------------------------------------------------------------------------------------------------------
-with Debugging, Ada.Strings.Unbounded; use Debugging, Ada.Strings.Unbounded; --$D
-with 
+package Tenet.Stacks is
 
-
--------------------------------------------------------------------------------------------------------------------
-generic
-
-
--------------------------------------------------------------------------------------------------------------------
-package body Tenet. is
-
-   pragma Preelaborate;
-
-
-   ----------------------------------------------------------------------------------------------------------------
-   -- :
-
-
-
--------------------------------------------------------------------------------------------------------------------
-end Tenet.;
+   pragma Pure;
+   
+   Stack_Error: exception;
+   
+end;
 
 
 -------------------------------------------------------------------------------------------------------------------
@@ -72,19 +58,19 @@ end Tenet.;
 -------------------------------------------------------------------------------------------------------------------
 -- Repository Data
 
--- $Id: template.adb,v 1.2 2003/08/02 22:25:28 debater Exp $
+-- $Id: tenet-stacks.ads,v 1.1 2003/08/02 22:25:28 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.2 $
+-- $Revision: 1.1 $
 -- $Author: debater $
 -- $Date: 2003/08/02 22:25:28 $
 -- $State: Exp $
 
--- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/Attic/template.adb,v $
--- $RCSfile: template.adb,v $
+-- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/tenet-stacks.ads,v $
+-- $RCSfile: tenet-stacks.ads,v $
 
--- $Log: template.adb,v $
--- Revision 1.2  2003/08/02 22:25:28  debater
+-- $Log: tenet-stacks.ads,v $
+-- Revision 1.1  2003/08/02 22:25:28  debater
 -- Improved 'Debugging' package, and testing.
 -- Added my own test framework (for Windows 95).
 -- Added the readme and maint files.

@@ -1,41 +1,34 @@
 -------------------------------------------------------------------------------------------------------------------
--- Tenet.
+-- debug001
 
--- Package Body
+-- Procedure Body
 
 -- Copyright (C) 2003 Nicholas James Roberts (South Croydon, Surrey, UK).
 -- Part of the Tenet Container Library. See the bottom (end) of this file for important legal information.
 
 
 -------------------------------------------------------------------------------------------------------------------
-with Debugging, Ada.Strings.Unbounded; use Debugging, Ada.Strings.Unbounded; --$D
-with 
+with Debugging; use Debugging;
+with Ada.Text_IO; use Ada.Text_IO;
 
-
--------------------------------------------------------------------------------------------------------------------
-generic
-
-
--------------------------------------------------------------------------------------------------------------------
-package body Tenet. is
-
-   pragma Preelaborate;
-
-
-   ----------------------------------------------------------------------------------------------------------------
-   -- :
-
-
-
--------------------------------------------------------------------------------------------------------------------
-end Tenet.;
+procedure debug001 is
+begin
+   Set_Current_Locus( "debug001" );
+   Note( "About to test Debugging.Ensure" );
+   Ensure( True, "failed (1)" );
+   begin
+      Ensure( False, "triggered correctly" );
+   exception
+      when Debugging_Error =>
+         Put( "Debugging.Debugging_Error raised correctly" );
+         return;
+   end;
+   Error( "failed (2)" );
+end;
 
 
 -------------------------------------------------------------------------------------------------------------------
 -- LEGAL INFORMATION
-
--- The "Tenet Container Library", or "Tenet", is a "Program" as defined in clause 0 of the GPL, and its source code
--- exactly comprises the contents of the accompanying files named in the accompanying file "manifest.txt".
 
 -- "Tenet" is free software; you can redistribute it and/or modify it under the terms of the GNU General Public
 -- License as published by the Free Software Foundation; either version 2, or (at your option) any later version.
@@ -72,19 +65,19 @@ end Tenet.;
 -------------------------------------------------------------------------------------------------------------------
 -- Repository Data
 
--- $Id: template.adb,v 1.2 2003/08/02 22:25:28 debater Exp $
+-- $Id: debug001.adb,v 1.1 2003/08/02 22:25:28 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.2 $
+-- $Revision: 1.1 $
 -- $Author: debater $
 -- $Date: 2003/08/02 22:25:28 $
 -- $State: Exp $
 
--- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/Attic/template.adb,v $
--- $RCSfile: template.adb,v $
+-- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/test/debug001.adb,v $
+-- $RCSfile: debug001.adb,v $
 
--- $Log: template.adb,v $
--- Revision 1.2  2003/08/02 22:25:28  debater
+-- $Log: debug001.adb,v $
+-- Revision 1.1  2003/08/02 22:25:28  debater
 -- Improved 'Debugging' package, and testing.
 -- Added my own test framework (for Windows 95).
 -- Added the readme and maint files.
