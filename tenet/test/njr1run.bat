@@ -11,6 +11,8 @@ call \cvsroot\tenet\test\njr1chkp debug001
 call \cvsroot\tenet\test\njr1chkf errorlog.txt debug001
 call \cvsroot\tenet\test\njr1chkp calio001
 call \cvsroot\tenet\test\njr1chkf caliotf1.txt calio001
+\bin\intio001 keep\intio001\intiotd1.csv intiotd1.csv
+call \cvsroot\tenet\test\njr1chkf intiotd1.csv intio001
 echo all tests completed
 goto runfin
 :runbadb

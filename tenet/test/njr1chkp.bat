@@ -1,6 +1,6 @@
 rem checks output program %1 against canonical output
 echo testing program "%1"
-\bin\%1 > output.txt
+\bin\%1 "%2" "%3" > output.txt
 if errorlevel 1 goto chkp1
 call \cvsroot\tenet\test\njr1chkf output.txt %1
 goto chkp2

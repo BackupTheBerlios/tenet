@@ -7,6 +7,8 @@ tenet-debugging.adb
 tenet-debugging.ads
 tenet-exchange_pair.adb
 tenet-exchange_pair.ads
+tenet-interchange_io.adb
+tenet-interchange_io.ads
 tenet-iteration.adb
 tenet-iteration.ads
 tenet-iteration_exceptions.ads
@@ -22,6 +24,4 @@ tenet-stacks-bounded.adb
 tenet-stacks-bounded.ads
 tenet-stacks.ads
 tenet.ads
-test/calio.adb
-test/debug001.adb
 
