@@ -4,7 +4,7 @@ project njr1 is
    for Object_Dir  use "\obj";
    for Exec_Dir    use "\bin";
 
-   for Main use ("debug001");
+   for Main use ("debug001", "calio001");
 
 end njr1;
 

@@ -1,10 +1,13 @@
-debugging.adb
-debugging.ads
+tenet-calendar_io.adb
+tenet-calendar_io.ads
+tenet-debugging.adb
+tenet-debugging.ads
 gpl.txt
 maint.txt
 manifest.txt
 readme.txt
 tenet.ads
 tenet-stacks.ads
+test/calio.adb
 test/debug001.adb
 
