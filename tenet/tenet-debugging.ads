@@ -1,34 +1,84 @@
 -------------------------------------------------------------------------------------------------------------------
--- Tenet.
+-- Tenet.Debugging
 
--- Package Body
+-- Package Specification
 
 -- Copyright (C) 2003 Nicholas James Roberts (South Croydon, Surrey, UK).
 -- Part of the Tenet Container Library. See the bottom (end) of this file for important legal information.
 
 
 -------------------------------------------------------------------------------------------------------------------
-with Debugging, Ada.Strings.Unbounded; use Debugging, Ada.Strings.Unbounded; --$D
-with 
-
-
--------------------------------------------------------------------------------------------------------------------
-generic
-
-
--------------------------------------------------------------------------------------------------------------------
-package body Tenet. is
-
-   pragma Preelaborate;
+package Tenet.Debugging is
 
 
    ----------------------------------------------------------------------------------------------------------------
-   -- :
+   -- Debugging levels and locus:
+
+   subtype Debugging_Level is Integer range 0..7;
+
+   -- 0 means none, 7 means highest level of debugging
+   
+   Current_Level: Debugging_Level := Debugging_Level'Last;
+
+   function Current_Locus return String;
+
+   procedure Set_Current_Locus (Locus: in String);
 
 
+   ----------------------------------------------------------------------------------------------------------------
+   -- Reporting an error:
 
--------------------------------------------------------------------------------------------------------------------
-end Tenet.;
+   procedure Error (Message: in String := "Unspecified";
+                    Level:   in Debugging_Level := 0);
+
+   -- if Current_Level >= Level, logs message and raises Debugging_Error
+   
+
+   ----------------------------------------------------------------------------------------------------------------
+   -- Checking for errors:
+
+   procedure Ensure (Condition: in Boolean;
+                     Message:   in String := "Unspecified";
+                     Level:     in Debugging_Level := 1);
+
+   -- if Current_Level >= Level, if Condition=True then Error(Message,Level)
+   
+   pragma Inline(Ensure);
+   
+
+   ----------------------------------------------------------------------------------------------------------------
+   -- Log messages:
+
+   procedure Note (Message: in String;
+                   Level:   in Debugging_Level := 1);
+
+   -- if Current_Level >= Level, writes Message into log
+   
+
+   ----------------------------------------------------------------------------------------------------------------
+   -- Error log management:
+
+   procedure Open_Log (Name: in String := "";  -- "" for default name
+                       Form: in String := ""); -- "" for default form
+
+   -- log is opened automatically when necessary
+
+   procedure Close_Log;
+
+   -- log is closed automatically at termination of program
+   
+   function Log_is_Open return Boolean;
+
+   function Log_Name return String;
+   function Log_Form return String;
+
+   ----------------------------------------------------------------------------------------------------------------
+   -- Exceptions:
+
+   Debugging_Error: exception;
+   
+
+end Tenet.Debugging;
 
 
 -------------------------------------------------------------------------------------------------------------------
@@ -72,23 +122,29 @@ end Tenet.;
 -------------------------------------------------------------------------------------------------------------------
 -- Repository Data
 
--- $Id: template.adb,v 1.2 2003/08/02 22:25:28 debater Exp $
+-- $Id: tenet-debugging.ads,v 1.1 2003/08/03 19:03:47 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.2 $
+-- $Revision: 1.1 $
 -- $Author: debater $
--- $Date: 2003/08/02 22:25:28 $
+-- $Date: 2003/08/03 19:03:47 $
 -- $State: Exp $
 
--- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/Attic/template.adb,v $
--- $RCSfile: template.adb,v $
+-- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/tenet-debugging.ads,v $
+-- $RCSfile: tenet-debugging.ads,v $
 
--- $Log: template.adb,v $
--- Revision 1.2  2003/08/02 22:25:28  debater
+-- $Log: tenet-debugging.ads,v $
+-- Revision 1.1  2003/08/03 19:03:47  debater
+-- Still just populating the module. Early days.
+--
+-- Revision 1.3  2003/08/02 22:25:28  debater
 -- Improved 'Debugging' package, and testing.
 -- Added my own test framework (for Windows 95).
 -- Added the readme and maint files.
 -- Made various small improvements.
+--
+-- Revision 1.2  2003/08/02 04:08:40  debater
+-- First successful test run
 --
 
 

@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------------------------------------------
--- Tenet.
+-- Tenet.Stacks.Bounded
 
 -- Package Specification
 
@@ -8,26 +8,71 @@
 
 
 -------------------------------------------------------------------------------------------------------------------
-with 
+with Ada.Streams; -- for private part only
 
 
 -------------------------------------------------------------------------------------------------------------------
-generic
-
-
--------------------------------------------------------------------------------------------------------------------
-package Tenet. is
-
-   pragma Preelaborate;
+package Tenet.Stacks.Bounded is
 
 
    ----------------------------------------------------------------------------------------------------------------
-   -- :
+   -- Generic bounded-length stacks package:
+
+   generic
+      type Element_Type is private;
+      Max: Positive;
+
+   package Generic_Bounded_Length is
+
+      type Stack is limited private;
+
+      function Depth (Source: in Stack) return Natural;
+
+      function is_Null (Source: in Stack) return Boolean;
+
+      function Top (Source: in Stack) return Element_Type;
+
+      procedure Clear (Source: in out Stack);
+
+      procedure Push (Source: in out Stack; Item: in  Element_Type);
+      procedure Pop  (Source: in out Stack; Item: out Element_Type);
+
+      procedure Pop_and_Discard (Source: in out Stack; How_Many: in Positive := 1);
+      procedure Copy_Top        (Source: in out Stack; How_Many: in Positive := 1);
+
+      procedure Copy_Top_Slice (Source: in out Stack; Length: in Positive);
+
+      Stack_Error: exception renames Tenet.Stacks.Stack_Error;
 
 
+   ----------------------------------------------------------------------------------------------------------------
+   -- Private part of Tenet.Stacks.Bounded:
 
--------------------------------------------------------------------------------------------------------------------
-end Tenet.;
+   private
+
+      subtype Depth_Count is Positive range 0..Max;
+      subtype Array_Index is Positive range 1..Max;
+
+      type Stack_Array is array (Array_Index) of Element_Type;
+
+      type Stack is
+         record
+            Data:  Stack_Array;
+            Depth: Depth_Count := 0; -- number on stack
+         end record;
+
+      procedure Write_Stack (Stream:    access Ada.Streams.Root_Stream_Type'Class;
+                             Container: in     Stack);
+
+      procedure Read_Stack (Stream:    access Ada.Streams.Root_Stream_Type'Class;
+                            Container: out    Stack);
+
+      for Stack'Write use Write_Stack;
+      for Stack'Read  use Read_Stack;
+
+   end Generic_Bounded_Length;
+
+end Tenet.Stacks.Bounded;
 
 
 -------------------------------------------------------------------------------------------------------------------
@@ -71,18 +116,21 @@ end Tenet.;
 -------------------------------------------------------------------------------------------------------------------
 -- Repository Data
 
--- $Id: template.ads,v 1.2 2003/08/02 22:25:28 debater Exp $
+-- $Id: tenet-stacks-bounded.ads,v 1.1 2003/08/03 19:03:47 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.2 $
+-- $Revision: 1.1 $
 -- $Author: debater $
--- $Date: 2003/08/02 22:25:28 $
+-- $Date: 2003/08/03 19:03:47 $
 -- $State: Exp $
 
--- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/Attic/template.ads,v $
--- $RCSfile: template.ads,v $
+-- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/tenet-stacks-bounded.ads,v $
+-- $RCSfile: tenet-stacks-bounded.ads,v $
 
--- $Log: template.ads,v $
+-- $Log: tenet-stacks-bounded.ads,v $
+-- Revision 1.1  2003/08/03 19:03:47  debater
+-- Still just populating the module. Early days.
+--
 -- Revision 1.2  2003/08/02 22:25:28  debater
 -- Improved 'Debugging' package, and testing.
 -- Added my own test framework (for Windows 95).

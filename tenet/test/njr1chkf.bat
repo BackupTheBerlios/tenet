@@ -11,5 +11,6 @@ fc /l /n "%1" "keep\%2\%1"
 if not errorlevel 1 goto chkf3
 echo ERROR *** in file "%1" of program "%2"
 :chkf3
+del "%1"
 rem njr1chkf finished
 

@@ -8,19 +8,19 @@
 
 
 -------------------------------------------------------------------------------------------------------------------
-with Debugging; use Debugging;
+with Tenet.Debugging; use Tenet.Debugging;
 with Ada.Text_IO; use Ada.Text_IO;
 
 procedure debug001 is
 begin
    Set_Current_Locus( "debug001" );
-   Note( "About to test Debugging.Ensure" );
+   Note( "About to test Tenet.Debugging.Ensure" );
    Ensure( True, "failed (1)" );
    begin
       Ensure( False, "triggered correctly" );
    exception
       when Debugging_Error =>
-         Put( "Debugging.Debugging_Error raised correctly" );
+         Put( "Tenet.Debugging.Debugging_Error raised correctly" );
          return;
    end;
    Error( "failed (2)" );
@@ -29,6 +29,9 @@ end;
 
 -------------------------------------------------------------------------------------------------------------------
 -- LEGAL INFORMATION
+
+-- The "Tenet Container Library", or "Tenet", is a "Program" as defined in clause 0 of the GPL, and its source code
+-- exactly comprises the contents of the accompanying files named in the accompanying file "manifest.txt".
 
 -- "Tenet" is free software; you can redistribute it and/or modify it under the terms of the GNU General Public
 -- License as published by the Free Software Foundation; either version 2, or (at your option) any later version.
@@ -65,18 +68,21 @@ end;
 -------------------------------------------------------------------------------------------------------------------
 -- Repository Data
 
--- $Id: debug001.adb,v 1.1 2003/08/02 22:25:28 debater Exp $
+-- $Id: debug001.adb,v 1.2 2003/08/03 19:03:47 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.1 $
+-- $Revision: 1.2 $
 -- $Author: debater $
--- $Date: 2003/08/02 22:25:28 $
+-- $Date: 2003/08/03 19:03:47 $
 -- $State: Exp $
 
 -- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/test/debug001.adb,v $
 -- $RCSfile: debug001.adb,v $
 
 -- $Log: debug001.adb,v $
+-- Revision 1.2  2003/08/03 19:03:47  debater
+-- Still just populating the module. Early days.
+--
 -- Revision 1.1  2003/08/02 22:25:28  debater
 -- Improved 'Debugging' package, and testing.
 -- Added my own test framework (for Windows 95).

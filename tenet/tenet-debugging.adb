@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------------------------------------------
--- Debugging
+-- Tenet.Debugging
 
 -- Package Body
 
@@ -14,7 +14,7 @@ with Ada.Strings.Bounded, Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
 
 -------------------------------------------------------------------------------------------------------------------
-package body Debugging is
+package body Tenet.Debugging is
 
 
    ----------------------------------------------------------------------------------------------------------------
@@ -293,7 +293,7 @@ package body Debugging is
    end;
 
 
-end Debugging;
+end Tenet.Debugging;
 
 
 -------------------------------------------------------------------------------------------------------------------
@@ -337,18 +337,21 @@ end Debugging;
 -------------------------------------------------------------------------------------------------------------------
 -- Repository Data
 
--- $Id: debugging.adb,v 1.3 2003/08/02 22:25:28 debater Exp $
+-- $Id: tenet-debugging.adb,v 1.1 2003/08/03 19:03:47 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.3 $
+-- $Revision: 1.1 $
 -- $Author: debater $
--- $Date: 2003/08/02 22:25:28 $
+-- $Date: 2003/08/03 19:03:47 $
 -- $State: Exp $
 
--- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/Attic/debugging.adb,v $
--- $RCSfile: debugging.adb,v $
+-- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/tenet-debugging.adb,v $
+-- $RCSfile: tenet-debugging.adb,v $
 
--- $Log: debugging.adb,v $
+-- $Log: tenet-debugging.adb,v $
+-- Revision 1.1  2003/08/03 19:03:47  debater
+-- Still just populating the module. Early days.
+--
 -- Revision 1.3  2003/08/02 22:25:28  debater
 -- Improved 'Debugging' package, and testing.
 -- Added my own test framework (for Windows 95).
