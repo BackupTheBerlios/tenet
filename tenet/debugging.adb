@@ -8,7 +8,9 @@
 
 
 -------------------------------------------------------------------------------------------------------------------
-with Ada.Finalization, Ada.Calendar, Ada.Text_IO, Ada.Command_Line, Ada.Strings.Bounded;
+with Ada.Finalization, Ada.Calendar, Ada.Command_Line;
+with Ada.Text_IO, Ada.Integer_Text_IO; use Ada.Text_IO, Ada.Integer_Text_IO;
+with Ada.Strings.Bounded, Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
 
 -------------------------------------------------------------------------------------------------------------------
@@ -18,10 +20,13 @@ package body Debugging is
    ----------------------------------------------------------------------------------------------------------------
    -- Debugging state:
 
-   type Debugging_State is new Ada.Finalization.Controlled with
+   type Debugging_State is new Ada.Finalization.Limited_Controlled with
       record
-         Log: Ada.Text_IO.File_Type;
+         Log:   Ada.Text_IO.File_Type;
+         Locus: Unbounded_String;
       end record;
+
+   procedure Finalize (State: in out Debugging_State);
 
    -- Using a controlled type for the state facilitates finalization (closing the log).
 
@@ -29,10 +34,24 @@ package body Debugging is
 
 
    ----------------------------------------------------------------------------------------------------------------
+   -- Current locus:
+
+   function Current_Locus return String is
+   begin
+      return To_String( The_State.Locus );
+   end;
+
+   procedure Set_Current_Locus (Locus: in String) is
+   begin
+      The_State.Locus := To_Unbounded_String(Locus);
+   end;
+
+
+   ----------------------------------------------------------------------------------------------------------------
    -- Putting a timestamped message on the log:
 
-   Put_Timestamped (File:    in out Ada.Text_IO.File_Type;
-                    Message: in     String) is
+   procedure Put_Timestamped (File:    in out Ada.Text_IO.File_Type;
+                              Message: in     String) is
 
       use Ada.Calendar, Ada.Text_IO, Ada.Strings.Bounded;
 
@@ -43,23 +62,21 @@ package body Debugging is
 	   Month:         Month_Number;
 	   Day_of_Month:  Day_Number;
 	   Time_of_Day:   Day_Duration;
-	   Sec_of_Day:    Natural range 0 .. 24*60*60+2;
-	   Extra_Secs:    Natural range 0 .. 2;
+	   Sec_of_Day:    Natural range 0 .. 24*60*60;
 	   Hour:          Natural range 0..23;
 	   Sec_of_Hour:   Natural range 0 .. 60*60;
 	   Minute:        Natural range 0..59;
-	   Sec_of_Minute: Natural range 0..62;
+	   Sec_of_Minute: Natural range 0..59;
 
    begin
 
-      Split(Stamp,Year,Month,Day_of_Month,Secs_of_Day);
+      Split(Stamp,Year,Month,Day_of_Month,Time_of_Day);
       Sec_of_Day := Natural(Time_of_Day);
-      Extra_Secs := (Sec_of_Day+1) mod (24*60*60);
-      Sec_of_Day := Sec_of_Day - Extra_Secs;
+      if Sec_of_Day = 24*60*60 then Sec_of_Day := Sec_of_Day-1; end if; -- if 23:59:60, simply reduce to 59 ;-)
       Hour := Sec_of_Day / (60*60);
       Sec_of_Hour := Sec_of_Day - Hour*60*60;
       Minute := Sec_of_Hour / 60;
-      Sec_of_Minute := Sec_of_Hour - Minute*60 + Extra_Secs;
+      Sec_of_Minute := Sec_of_Hour - Minute*60;
 
       Put( File, Year, 4 );
       Put( File, '-' );
@@ -80,7 +97,7 @@ package body Debugging is
 
       if Current_Locus /= Null_Unbounded_String then
          Put( File, "(<Locus> " );
-         Put( File, To_String(Current_Locus) );
+         Put( File, To_String(The_State.Locus) );
          Put( File, ") " );
       end if;
 
@@ -110,7 +127,7 @@ package body Debugging is
 
    function Catenate_Program_Arguments return String is
 
-      package Buffer_Strings is new Ada.Strings.Bounded.Generic_Bounded_Strings(4096);
+      package Buffer_Strings is new Ada.Strings.Bounded.Generic_Bounded_Length(4096);
       use Ada.Strings, Buffer_Strings;
 
       Buffer: Buffer_Strings.Bounded_String;
@@ -212,7 +229,7 @@ package body Debugging is
          Close(State.Log);
       end if;
 
-      Ada.Finalization.Finalize( Ada.Finalization.Controlled(State) ); -- to be ultra-pedantic
+      Ada.Finalization.Finalize( Ada.Finalization.Limited_Controlled(State) ); -- to be ultra-pedantic
 
    end;
 
@@ -251,7 +268,7 @@ package body Debugging is
    begin
 
       if Current_Level >= Level then
-         if Condition then
+         if not Condition then
             Error(Message,Level);
          end if;
       end if;
@@ -315,20 +332,20 @@ end Debugging;
 -------------------------------------------------------------------------------------------------------------------
 -- Repository Data
 
--- $Id: debugging.adb,v 1.1 2003/08/01 21:21:33 debater Exp $
+-- $Id: debugging.adb,v 1.2 2003/08/02 04:08:40 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.1 $
+-- $Revision: 1.2 $
 -- $Author: debater $
--- $Date: 2003/08/01 21:21:33 $
+-- $Date: 2003/08/02 04:08:40 $
 -- $State: Exp $
 
 -- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/Attic/debugging.adb,v $
 -- $RCSfile: debugging.adb,v $
 
 -- $Log: debugging.adb,v $
--- Revision 1.1  2003/08/01 21:21:33  debater
--- Initial revision
+-- Revision 1.2  2003/08/02 04:08:40  debater
+-- First successful test run
 --
 
 

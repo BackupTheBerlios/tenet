@@ -1,2 +1,5 @@
 $pfebk
-$pfebk
+*.ali
+*.o
+*.exe
+

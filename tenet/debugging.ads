@@ -8,10 +8,6 @@
 
 
 -------------------------------------------------------------------------------------------------------------------
-with Ada.Strings.Unbounded;
-
-
--------------------------------------------------------------------------------------------------------------------
 package Debugging is
 
 
@@ -23,8 +19,11 @@ package Debugging is
    -- 0 means none, 7 means highest level of debugging
    
    Current_Level: Debugging_Level := Debugging_Level'Last;
-   Current_Locus: Ada.Strings.Unbounded.Unbounded_String; -- initially null
-   
+
+   function Current_Locus return String;
+
+   procedure Set_Current_Locus (Locus: in String);
+
 
    ----------------------------------------------------------------------------------------------------------------
    -- Reporting an error:
@@ -120,20 +119,20 @@ end Debugging;
 -------------------------------------------------------------------------------------------------------------------
 -- Repository Data
 
--- $Id: debugging.ads,v 1.1 2003/08/01 21:21:32 debater Exp $
+-- $Id: debugging.ads,v 1.2 2003/08/02 04:08:40 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.1 $
+-- $Revision: 1.2 $
 -- $Author: debater $
--- $Date: 2003/08/01 21:21:32 $
+-- $Date: 2003/08/02 04:08:40 $
 -- $State: Exp $
 
 -- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/Attic/debugging.ads,v $
 -- $RCSfile: debugging.ads,v $
 
 -- $Log: debugging.ads,v $
--- Revision 1.1  2003/08/01 21:21:32  debater
--- Initial revision
+-- Revision 1.2  2003/08/02 04:08:40  debater
+-- First successful test run
 --
 
 
