@@ -71,18 +71,21 @@ end Tenet.Reverse_Array;
 -------------------------------------------------------------------------------------------------------------------
 -- =###= Repository Data =###=
 
--- $Id: tenet-reverse_array.adb,v 1.1 2003/08/11 02:16:57 debater Exp $
+-- $Id: tenet-reverse_array.adb,v 1.2 2004/03/14 21:07:14 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.1 $
+-- $Revision: 1.2 $
 -- $Author: debater $
--- $Date: 2003/08/11 02:16:57 $
+-- $Date: 2004/03/14 21:07:14 $
 -- $State: Exp $
 
 -- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/tenet-reverse_array.adb,v $
 -- $RCSfile: tenet-reverse_array.adb,v $
 
 -- $Log: tenet-reverse_array.adb,v $
+-- Revision 1.2  2004/03/14 21:07:14  debater
+-- Routine commit.
+--
 -- Revision 1.1  2003/08/11 02:16:57  debater
 -- Added various small utilities plus the iteration base package.
 --

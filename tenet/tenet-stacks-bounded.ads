@@ -114,18 +114,21 @@ end Tenet.Stacks.Bounded;
 -------------------------------------------------------------------------------------------------------------------
 -- =###= Repository Data =###=
 
--- $Id: tenet-stacks-bounded.ads,v 1.2 2003/08/10 17:49:49 debater Exp $
+-- $Id: tenet-stacks-bounded.ads,v 1.3 2004/03/14 21:07:14 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.2 $
+-- $Revision: 1.3 $
 -- $Author: debater $
--- $Date: 2003/08/10 17:49:49 $
+-- $Date: 2004/03/14 21:07:14 $
 -- $State: Exp $
 
 -- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/tenet-stacks-bounded.ads,v $
 -- $RCSfile: tenet-stacks-bounded.ads,v $
 
 -- $Log: tenet-stacks-bounded.ads,v $
+-- Revision 1.3  2004/03/14 21:07:14  debater
+-- Routine commit.
+--
 -- Revision 1.2  2003/08/10 17:49:49  debater
 -- Added bounded stacks package.
 --

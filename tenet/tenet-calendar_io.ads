@@ -141,18 +141,21 @@ end Tenet.Calendar_IO;
 -------------------------------------------------------------------------------------------------------------------
 -- =###= Repository Data =###=
 
--- $Id: tenet-calendar_io.ads,v 1.1 2003/08/06 21:31:48 debater Exp $
+-- $Id: tenet-calendar_io.ads,v 1.2 2004/03/14 21:07:14 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.1 $
+-- $Revision: 1.2 $
 -- $Author: debater $
--- $Date: 2003/08/06 21:31:48 $
+-- $Date: 2004/03/14 21:07:14 $
 -- $State: Exp $
 
 -- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/tenet-calendar_io.ads,v $
 -- $RCSfile: tenet-calendar_io.ads,v $
 
 -- $Log: tenet-calendar_io.ads,v $
+-- Revision 1.2  2004/03/14 21:07:14  debater
+-- Routine commit.
+--
 -- Revision 1.1  2003/08/06 21:31:48  debater
 -- Added Tenet.Calendar_IO package.
 --

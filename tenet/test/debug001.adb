@@ -68,18 +68,21 @@ end;
 -------------------------------------------------------------------------------------------------------------------
 -- Repository Data
 
--- $Id: debug001.adb,v 1.2 2003/08/03 19:03:47 debater Exp $
+-- $Id: debug001.adb,v 1.3 2004/03/14 21:07:14 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.2 $
+-- $Revision: 1.3 $
 -- $Author: debater $
--- $Date: 2003/08/03 19:03:47 $
+-- $Date: 2004/03/14 21:07:14 $
 -- $State: Exp $
 
 -- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/test/debug001.adb,v $
 -- $RCSfile: debug001.adb,v $
 
 -- $Log: debug001.adb,v $
+-- Revision 1.3  2004/03/14 21:07:14  debater
+-- Routine commit.
+--
 -- Revision 1.2  2003/08/03 19:03:47  debater
 -- Still just populating the module. Early days.
 --

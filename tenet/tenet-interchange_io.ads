@@ -12,31 +12,11 @@ use Ada.Strings.Maps, Ada.Characters.Latin_1;
 
 
 -------------------------------------------------------------------------------------------------------------------
-generic
-   type Element_Type is private;
-
-   type Field_Index is (<>);
-
-   with function Field_Name (Field: in Field_Index) return String is Field_Index'Image;
-
-   Max_Fields_in_File: in Positive := 100;
-   Max_Field_Width:    in Positive := 1000;
-
-
--------------------------------------------------------------------------------------------------------------------
 package Tenet.Interchange_IO is
 
    -- Provides input and output facilities for an interchange file.
 
    -- See the accompanying Tenet documentation for more details.
-
-
-   ----------------------------------------------------------------------------------------------------------------
-   -- =###= Interchange file type  and file modes =###=
-
-   type File_Type is limited private;
-
-   type File_Mode is (In_File, Out_File, Append_File);
 
 
    ----------------------------------------------------------------------------------------------------------------
@@ -69,69 +49,214 @@ package Tenet.Interchange_IO is
 
 
    ----------------------------------------------------------------------------------------------------------------
-   -- =###= File management =###=
-
-   procedure Create (File: in out File_Type;
-                     Mode: in     File_Mode     := Out_File;
-                     Name: in     String        := "";
-                     Form: in     String        := "";
-                     Spec: in     Specification := Default_Spec);
-
-   procedure Open (File: in out File_Type;
-                   Mode: in     File_Mode;
-                   Name: in     String;
-                   Form: in     String        := "";
-                   Spec: in     Specification := Default_Spec);
-
-   procedure Reset  (File: in out File_Type);
-   procedure Close  (File: in out File_Type);
-   procedure Delete (File: in out File_Type);
-
-   function Mode (File: in File_Type) return File_Mode;
-   function Name (File: in File_Type) return String;
-   function Form (File: in File_Type) return String;
-   function Spec (File: in File_Type) return Specification;
-
-   function is_Open (File: in File_Type) return Boolean;
-
-   procedure Flush (File: in out File_Type);
-
-
-   ----------------------------------------------------------------------------------------------------------------
-   -- =###= Detecting end of file =###=
-
-   function End_of_File (File: in File_Type) return Boolean;
-
-
-   ----------------------------------------------------------------------------------------------------------------
    -- =###= Generic package for input =###=
 
    generic
+      type Element_Type is private;
+
+      type Field_Index is (<>);
+
       with procedure Set_Field (Source: in out Element_Type;
                                 Field:  in     Field_Index;
                                 Image:  in     String) is <>;
 
-   package Generic_Interchange_Input is
+      with function Field_Name (Field: in Field_Index) return String is Field_Index'Image;
+
+      Max_Fields_in_File: in Positive := 100;
+      Max_Field_Width:    in Positive := 1000;
+
+   package Generic_Input is
+
+      ----------------------
+      -- =##= File type =##=
+
+      type File_Type is limited private;
+
+      -------------------------------
+      -- =##= File management =##=
+
+      procedure Open (File: in out File_Type;
+                      Name: in     String;
+                      Form: in     String        := "";
+                      Spec: in     Specification := Default_Spec);
+
+      procedure Reset (File: in out File_Type);
+
+      procedure Reset (File: in out File_Type;
+                       Spec: in     Specification);
+
+      procedure Close  (File: in out File_Type);
+      procedure Delete (File: in out File_Type);
+
+      function Name (File: in File_Type) return String;
+      function Form (File: in File_Type) return String;
+      function Spec (File: in File_Type) return Specification;
+
+      function is_Open (File: in File_Type) return Boolean;
+
+      -------------------------
+      -- =##= Reading data =##=
+
+      function End_of_File (File: in File_Type) return Boolean;
 
       procedure Read (File: in     File_Type;
                       Item: in out Element_Type);
 
-   end;
+   -------------------------
+   -- =##= Private part =##=
+
+   private
+
+      type File_Descriptor;
+
+      type File_Type is access File_Descriptor;
+
+   end Generic_Input;
 
 
    ----------------------------------------------------------------------------------------------------------------
    -- =###= Generic package for output =###=
 
    generic
+      type Element_Type is private;
+
+      type Field_Index is (<>);
+
       with function Get_Field (Source: in Element_Type;
                                Field:  in Field_Index) return String is <>;
 
-   package Generic_Interchange_Output is
+      with function Field_Name (Field: in Field_Index) return String is Field_Index'Image;
+
+   package Generic_Output is
+
+      ----------------------
+      -- =##= File type =##=
+
+      type File_Type is limited private;
+
+      -------------------------------
+      -- =##= File management =##=
+
+      procedure Create (File: in out File_Type;
+                        Name: in     String        := "";
+                        Form: in     String        := "";
+                        Spec: in     Specification := Default_Spec);
+
+      procedure Reset (File: in out File_Type);
+
+      procedure Reset (File: in out File_Type;
+                       Spec: in     Specification);
+
+      procedure Close  (File: in out File_Type);
+      procedure Delete (File: in out File_Type);
+
+      function Name (File: in File_Type) return String;
+      function Form (File: in File_Type) return String;
+      function Spec (File: in File_Type) return Specification;
+
+      function is_Open (File: in File_Type) return Boolean;
+
+      procedure Flush (File: in out File_Type);
+
+      -------------------------
+      -- =##= Writing data =##=
 
       procedure Write (File: in File_Type;
                        Item: in Element_Type);
 
-   end;
+   -------------------------
+   -- =##= Private part =##=
+
+   private
+
+      type File_Descriptor;
+
+      type File_Type is access File_Descriptor;
+
+   end Generic_Output;
+
+
+   ----------------------------------------------------------------------------------------------------------------
+   -- =###= Low-level (string based) I/O =###=
+
+   package Low_Level is
+
+      -------------------------------
+      -- =##= File type and mode =##=
+
+      type File_Type is limited private;
+
+      type File_Mode is (In_File, Out_File, Append_File);
+
+      -------------------------------
+      -- =##= File management =##=
+
+      procedure Create (File: in out File_Type;
+                        Mode: in     File_Mode     := Out_File;
+                        Name: in     String        := "";
+                        Form: in     String        := "";
+                        Spec: in     Specification := Default_Spec);
+
+      procedure Open (File: in out File_Type;
+                      Mode: in     File_Mode;
+                      Name: in     String;
+                      Form: in     String        := "";
+                      Spec: in     Specification := Default_Spec);
+
+      procedure Reset (File: in out File_Type);
+
+      procedure Reset (File: in out File_Type;
+                       Mode: in     File_Mode;
+                       Spec: in     Specification);
+
+      procedure Close  (File: in out File_Type);
+      procedure Delete (File: in out File_Type);
+
+      function Mode (File: in File_Type) return File_Mode;
+      function Name (File: in File_Type) return String;
+      function Form (File: in File_Type) return String;
+      function Spec (File: in File_Type) return Specification;
+
+      function is_Open (File: in File_Type) return Boolean;
+
+      procedure Flush (File: in out File_Type);
+
+      -------------------------------------------
+      -- =##= Reading and writing as strings =##=
+
+      procedure Put_Field (File: in File_Type;
+                           Item: in String);
+
+      procedure New_Record (File: in File_Type);
+
+      procedure Get_Field (File: in  File_Type;
+                           Item: out String;
+                           Last: out Natural);
+
+      -- First record may contain field names, which can be read as normal.
+
+      function End_of_Record (File: in File_Type) return Boolean;
+
+--       procedure Skip_Record (File: in File_Type); -- retired from interface (and implementation)
+
+      function End_of_File (File: in File_Type) return Boolean;
+
+      ---------------------------------------
+      -- =##= Report an error in context =##=
+
+      procedure Raise_Data_Error (File:    in File_Type;
+                                  Message: in String := "Unspecified error");
+
+   -------------------------
+   -- =##= Private part =##=
+
+   private
+
+      type File_Descriptor;
+
+      type File_Type is access File_Descriptor;
+
+   end Low_Level;
 
 
    ----------------------------------------------------------------------------------------------------------------
@@ -147,21 +272,6 @@ package Tenet.Interchange_IO is
 	End_Error    : exception renames Ada.IO_Exceptions.End_Error;
 	Data_Error   : exception renames Ada.IO_Exceptions.Data_Error;
 	Layout_Error : exception renames Ada.IO_Exceptions.Layout_Error;
-
-
--------------------------------------------------------------------------------------------------------------------
--- =###= Private part =###=
-
-private
-
-   type File_Descriptor;
-
-   type Descriptor_Access is access File_Descriptor;
-
-   type File_Type is limited
-      record
-         Desc: Descriptor_Access := null; -- null when closed
-      end record;
 
 
 -------------------------------------------------------------------------------------------------------------------
@@ -209,18 +319,21 @@ end Tenet.Interchange_IO;
 -------------------------------------------------------------------------------------------------------------------
 -- =###= Repository Data =###=
 
--- $Id: tenet-interchange_io.ads,v 1.1 2003/08/23 04:10:15 debater Exp $
+-- $Id: tenet-interchange_io.ads,v 1.2 2004/03/14 21:07:14 debater Exp $
 -- $Name:  $
 
--- $Revision: 1.1 $
+-- $Revision: 1.2 $
 -- $Author: debater $
--- $Date: 2003/08/23 04:10:15 $
+-- $Date: 2004/03/14 21:07:14 $
 -- $State: Exp $
 
 -- $Source: /home/xubuntu/berlios_backup/github/tmp-cvs/tenet/Repository/tenet/tenet-interchange_io.ads,v $
 -- $RCSfile: tenet-interchange_io.ads,v $
 
 -- $Log: tenet-interchange_io.ads,v $
+-- Revision 1.2  2004/03/14 21:07:14  debater
+-- Routine commit.
+--
 -- Revision 1.1  2003/08/23 04:10:15  debater
 -- Added Tenet.Interchange_IO package.
 --
